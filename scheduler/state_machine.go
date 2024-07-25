@@ -630,9 +630,9 @@ func (s *StateMachine) pollOnCommit(
 			//    Transit to Working, and wait for the next state of
 			//    the primary, Stopping or Stopped.
 			s.State = SchedulerStatusWorking
-			log.Info("state transition from commit to working",
+			log.Error("state transition from commit to working",
 				zap.String("changefeedID", s.ID.String()),
-				zap.String("inferiorID", input.GetInferiorID().String()))
+				zap.String("inferiorID", input.GetInferiorID().String()), zap.Any("input", input))
 			return nil, true, nil
 		}
 		return nil, false, s.multiplePrimaryError(
